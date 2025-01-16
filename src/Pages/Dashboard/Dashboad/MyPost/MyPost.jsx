@@ -9,8 +9,9 @@ const MyPost = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
     const axiosPublic=UsePublic()
+   
     // Fetch posts for the current user
-    const { data: posts = [], isLoading } = useQuery({
+    const { data: posts = [], isLoading,refetch } = useQuery({
         queryKey: ["posts", user?.email],
         queryFn: async () => {
             const { data } = await axiosPublic.get(`/posts/email/${user?.email}`);
@@ -22,6 +23,11 @@ console.log(posts);
 
     const handleDelete = (postId) => {
         console.log(postId);
+        axiosPublic.delete(`/posts/${postId}`)
+        .then(res =>{
+            console.log(res.data);
+            refetch()
+        })
     };
 
     if (isLoading) {

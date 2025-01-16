@@ -65,15 +65,43 @@ const MyProfile = () => {
                                     key={post._id}
                                     className="p-4 border rounded-md shadow-sm bg-base-200"
                                 >
-                                    <h3 className="font-bold text-lg">{post.postTitle}</h3>
-                                    <p className="text-gray-600 text-sm">
-                                        {post.postDescription.length > 100
-                                            ? post.postDescription.slice(0, 100) + "..."
-                                            : post.postDescription}
-                                    </p>
-                                    <p className="text-gray-400 text-xs mt-1">
-                                        {format(new Date(post?.time), "p")}
-                                    </p>
+                                   
+                                    
+                                    
+                                    <div className="hero bg-base-200 ">
+                                        <div className="hero-content flex-col lg:flex-row-reverse gap-5">
+                                            <img
+                                                src={post.image}
+                                                className="w-[200px]  rounded-lg shadow-2xl" />
+                                            <div className="space-y-3">
+                                                <h3 className="font-bold text-lg">{post.postTitle}</h3>
+                                                <p className="text-gray-600 text-sm w-3/4">
+                                                    {post.postDescription.length > 100
+                                                        ? post.postDescription.slice(0, 100) + "..."
+                                                        : post.postDescription}
+                                                </p>
+                                                <p className="text-gray-400 text-xs mt-1">
+                                                   Post Time: {format(new Date(post?.time), "p")}
+                                                </p>
+                                                <div className=" flex gap-5 items-center">
+                                                    <p>Author Name : {post.authorName}</p>
+                                                    <p>Author Email : {post.authorEmail}</p>
+                                                </div>
+
+                                                <div className=" flex gap-4 items-center">
+                                                    <button className="flex items-center cursor-pointer border-2 p-2 rounded-md text-green-500">
+
+                                                        <span className="font-medium"> 👍{post.upVote}</span>
+                                                    </button>
+                                                    <button className="flex items-center cursor-pointer  border-2 p-2 rounded-md text-red-500 ">
+
+                                                        <span className="font-medium">👎 {post.downVote}</span>
+                                                    </button>
+                                                </div>
+                                                <p>Tag : {post.tag}</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             ))}
                         </div>

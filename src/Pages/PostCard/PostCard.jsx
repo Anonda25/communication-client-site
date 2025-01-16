@@ -34,7 +34,7 @@ const PostCard = () => {
 
     const handleDownvote = async () => {
         try {
-            await axiosSecure.patch(`/posts/downvote/${id}`);
+            await axiosPublic.patch(`/posts/downvote/${id}`);
             refetch();
         } catch (error) {
             console.error("Failed to downvote:", error);

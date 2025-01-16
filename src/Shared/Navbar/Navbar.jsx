@@ -55,7 +55,7 @@ const Navbar = () => {
                                 <span className="font-medium">{user.displayName}</span>
                             </li>
                             <li>
-                                <Link to="/dashboard/my-profile">Dashboard</Link>
+                                <Link to="/dashboard">Dashboard</Link>
                             </li>
                             <li>
                                 <button onClick={handleLogout}>Logout</button>
