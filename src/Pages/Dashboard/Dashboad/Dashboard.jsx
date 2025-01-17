@@ -6,6 +6,7 @@ import useAdmin from "../../../Hooks/useAdmin";
 const Dashboard = () => {
 
     const [isAdmin] = useAdmin();
+
     return (
         <div className="min-h-screen bg-base-200 flex gap-5">
             {/* Sidebar Navigation */}

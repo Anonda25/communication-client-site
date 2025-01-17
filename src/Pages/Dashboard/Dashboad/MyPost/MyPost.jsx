@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import axios from "axios";
 import useAuth from "../../../../Hooks/UseAuth";
 import { useNavigate } from "react-router-dom";
 import UsePublic from "../../../../Hooks/UsePublic";
@@ -18,7 +17,7 @@ const MyPost = () => {
             return data;
         }
     });
-console.log(posts);
+
     
 
     const handleDelete = (postId) => {
@@ -62,6 +61,8 @@ console.log(posts);
                                     >
                                         Comments
                                     </button>
+                                    
+
                                 </td>
                                 <td className="px-4 py-2 flex gap-2">
                                     

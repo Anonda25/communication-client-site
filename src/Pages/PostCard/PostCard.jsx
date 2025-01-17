@@ -62,13 +62,14 @@ const PostCard = () => {
             postId: _id,
             comment,
             Name: authorName,
+            Title: postTitle
         };
         await axiosPublic.post(`/comments`, commentData)
         setComment("");
     };
 
     // Dynamic share URL
-    const shareUrl = `${window.location.origin}/post/${_id}`;
+    const shareUrl = `${window.location.origin}/post/${postTitle}`;
     return (
         <div className="max-w-lg mx-auto my-2 p-6 bg-white shadow-lg rounded-lg">
             {/* Post Image */}
@@ -135,8 +136,8 @@ const PostCard = () => {
                 <textarea
                     className="textarea textarea-info"
                     placeholder="Type your comment"
-                    value={comment} // Bind the textarea value to the state
-                    onChange={(e) => setComment(e.target.value)} // Update state on input change
+                    value={comment} 
+                    onChange={(e) => setComment(e.target.value)} 
                     required
                 ></textarea>
                 <div className="mt-2">

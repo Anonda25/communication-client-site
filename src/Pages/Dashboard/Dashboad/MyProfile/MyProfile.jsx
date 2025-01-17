@@ -15,26 +15,35 @@ const MyProfile = () => {
             return data;
         },
     });
-   
+    const { data: users = [],  } = useQuery({
+        queryKey: ["recentPosts", ],
+        queryFn: async () => {
+            const { data } = await axiosPublic.get(`/user/${user?.email}`);
+            return data;
+        },
+    });
+  
+
 
     if (isLoading) return <p>Loading...</p>;
 
-    const member = true;
-    const isMember = true;
-    console.log(recentPosts)
+    const member = users?.Badge;
+    // const isMember = true;
+    // console.log(recentPosts, )
+    console.log(users);
     return (
         <div className="min-h-screen bg-base-200 p-6">
             <div className="card bg-base-100 shadow-xl p-8">
                 {/* User Information */}
                 <div className="flex flex-col md:flex-row items-center space-x-6">
                     <img
-                        src={user?.photoURL || "https://via.placeholder.com/100"}
+                        src={users?.image || "https://via.placeholder.com/100"}
                         alt="User Avatar"
                         className="w-24 h-24 rounded-full object-cover border"
                     />
                     <div className="text-center md:text-left">
-                        <h1 className="text-3xl font-bold">{user?.displayName || "Anonymous User"}</h1>
-                        <p className="text-gray-500">{user?.email || "No email provided"}</p>
+                        <h1 className="text-3xl font-bold">{users?.name || "Anonymous User"}</h1>
+                        <p className="text-gray-500">{users?.email || "No email provided"}</p>
                     </div>
                 </div>
 
@@ -42,12 +51,13 @@ const MyProfile = () => {
                 <div className="mt-6">
                     <h2 className="text-xl font-semibold">Badges</h2>
                     <div className="flex space-x-4 mt-3">
-                        {member && (
+                        {member === "Bronze" && (
                             <div className="badge badge-outline badge-primary text-lg px-4 py-2">
                                 🥉 Bronze Badge
                             </div>
                         )}
-                        {isMember && (
+                        {/* Gold Badge */}
+                        {member === "Gold" && (
                             <div className="badge badge-outline badge-warning text-lg px-4 py-2">
                                 🥇 Gold Badge
                             </div>

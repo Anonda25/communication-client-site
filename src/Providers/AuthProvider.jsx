@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/Firebase.config";
-import axios from "axios";
+
 import UsePublic from "../Hooks/UsePublic";
 
 export const AuthContext = createContext(null);
@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const axiosPublic = UsePublic();
 
-    // **Authentication Functions**
+ 
     const handleRegister = (email, password) =>
         createUserWithEmailAndPassword(auth, email, password);
 
@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
     const updateUserProfile = (name, photo) =>
         updateProfile(auth.currentUser, { displayName: name, photoURL: photo });
 
-    // **Handle JWT and User State**
+    // Handle JWT and User State
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setLoading(true);
@@ -60,7 +60,7 @@ const AuthProvider = ({ children }) => {
         return unsubscribe;
     }, [axiosPublic]);
 
-    // **Context Value**
+    // Context Value
     const authInfo = {
         user,
         loading,
@@ -73,7 +73,7 @@ const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={authInfo}>
-            {loading ? <p>Loading...</p> : children}
+            {children}
         </AuthContext.Provider>
     );
 };

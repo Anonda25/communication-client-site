@@ -1,4 +1,4 @@
-import {createBrowserRouter,} from "react-router-dom";
+import { createBrowserRouter, } from "react-router-dom";
 import MainLayout from "../MainLayout/MainLayout";
 import Home from "../Pages/Home/Home";
 import Login from "../UserLogin/Login";
@@ -10,23 +10,25 @@ import MyPost from "../Pages/Dashboard/Dashboad/MyPost/MyPost";
 import PostCard from "../Pages/PostCard/PostCard";
 import PrivateRoute from "./PrivetRoute";
 import AllUser from "../Pages/Dashboard/Admin/AllUser/AllUser";
+import Announcement from "../Pages/Dashboard/Dashboad/Announcement/Announcement";
+import Comments from "../Pages/Dashboard/Dashboad/Comment/Comments";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout></MainLayout>,
-        errorElement:<></>,
-        children:[
+        errorElement: <></>,
+        children: [
             {
-                path:'/',
-                element:<Home></Home>
+                path: '/',
+                element: <Home></Home>
             },
             {
-                path:'Membership',
+                path: 'Membership',
                 element: <PrivateRoute><></></PrivateRoute>
             },
             {
-                path:'post/:id',
+                path: 'post/:id',
                 element: <PrivateRoute><PostCard></PostCard></PrivateRoute>,
             },
             {
@@ -35,16 +37,16 @@ const router = createBrowserRouter([
             },
             {
                 path: "/register",
-                element:<SignUp></SignUp>
+                element: <SignUp></SignUp>
             }
         ]
     },
     {
-        path:'/dashboard',
-        element:<Dashboard></Dashboard>,
-        children:[
+        path: '/dashboard',
+        element: <Dashboard></Dashboard>,
+        children: [
             {
-                path:'my-profile',
+                path: 'my-profile',
                 element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
             },
             {
@@ -55,15 +57,23 @@ const router = createBrowserRouter([
                 path: 'my-posts',
                 element: <PrivateRoute><MyPost></MyPost></PrivateRoute>
             },
+            {
+                path: 'comments',
+                element: <Comments></Comments>
+            },
 
             /// admin router
             {
-                path:'Manage-Users',
-                element:<AllUser></AllUser>
+                path: 'Manage-Users',
+                element: <AllUser></AllUser>
             },
+            {
+                path: "Make-Announcement",
+                element: <Announcement></Announcement>
+            }
         ]
     }
-    
+
 ]);
 
-export default  router
+export default router

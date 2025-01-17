@@ -29,6 +29,13 @@ const Home = () => {
                     />
                 </div>
             </div>
+            <div className="flex gap-3 justify-center items-center my-5">
+                <p>science</p>
+                <p>science</p>
+                <p>science</p>
+                <p>science</p>
+                <p>science</p>
+            </div>
             {
                 posts.map(post => <HomeStastices key={post._id} post={post}></HomeStastices>)
             }

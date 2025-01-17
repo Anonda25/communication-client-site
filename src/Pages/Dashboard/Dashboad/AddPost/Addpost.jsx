@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../../Hooks/UseAuth";
 import { useQuery } from "@tanstack/react-query";
@@ -28,7 +27,7 @@ const AddPost = () => {
     });
 
     const postCount = postData?.count || 0;
-    console.log(postData);
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -64,22 +63,22 @@ const AddPost = () => {
             console.error("Error adding post:", error);
         }
     };
-
-    if ( postCount >= 5) {
-        return (
-            <div className="max-w-md mx-auto mt-10 text-center">
-                <p className="mb-4 text-lg font-semibold">
-                    You have reached the maximum post limit. Become a member to add more posts.
-                </p>
-                <button
-                    onClick={() => navigate("/membership")}
-                    className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-                >
-                    Become a Member
-                </button>
-            </div>
-        );
-    }
+    
+    // if ( postCount >= 5) {
+    //     return (
+    //         <div className="max-w-md mx-auto mt-10 text-center">
+    //             <p className="mb-4 text-lg font-semibold">
+    //                 You have reached the maximum post limit. Become a member to add more posts.
+    //             </p>
+    //             <button
+    //                 onClick={() => navigate("/membership")}
+    //                 className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+    //             >
+    //                 Become a Member
+    //             </button>
+    //         </div>
+    //     );
+    // }
 
     if (isLoading) return <p>loading....</p>
 
