@@ -15,6 +15,8 @@ const MyProfile = () => {
             return data;
         },
     });
+
+
     const { data: users = [],  } = useQuery({
         queryKey: ["recentPosts", ],
         queryFn: async () => {
@@ -23,13 +25,13 @@ const MyProfile = () => {
         },
     });
   
+   
 
 
     if (isLoading) return <p>Loading...</p>;
 
     const member = users?.Badge;
-    // const isMember = true;
-    // console.log(recentPosts, )
+    
     console.log(users);
     return (
         <div className="min-h-screen bg-base-200 p-6">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,  } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../../Hooks/UseAuth";
@@ -25,8 +25,18 @@ const AddPost = () => {
             return data;
         },
     });
+    const { data: userInfo = [], } = useQuery({
+        queryKey: ["recentPosts",],
+        queryFn: async () => {
+            const { data } = await axiosPublic.get(`/user/${user?.email}`);
+            return data;
+        },
+    });
+
 
     const postCount = postData?.count || 0;
+    const isGoldMember = userInfo?.Badge === "Gold";
+    const postedData = postCount >= 5;
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -64,80 +74,85 @@ const AddPost = () => {
         }
     };
     
-    // if ( postCount >= 5) {
-    //     return (
-    //         <div className="max-w-md mx-auto mt-10 text-center">
-    //             <p className="mb-4 text-lg font-semibold">
-    //                 You have reached the maximum post limit. Become a member to add more posts.
-    //             </p>
-    //             <button
-    //                 onClick={() => navigate("/membership")}
-    //                 className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-    //             >
-    //                 Become a Member
-    //             </button>
-    //         </div>
-    //     );
-    // }
-
+    
     if (isLoading) return <p>loading....</p>
 
     
     return (
-        <div className="max-w-md mx-auto mt-10 p-5 bg-gray-100 rounded shadow">
-            <h1 className="text-2xl font-semibold text-center mb-5">Add Post</h1>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                    type="url"
-                    name="authorImage"
-                    placeholder="Author Image URL"
-                    className="w-full p-2 border rounded"
-                    required
-                />
-                <input
-                    type="text"
-                    name="authorName"
-                    placeholder="Author Name"
-                    className="w-full p-2 border rounded"
-                    required
-                />
-                <input
-                    type="email"
-                    name="authorEmail"
-                    placeholder="Author Email"
-                    className="w-full p-2 border rounded"
-                    required
-                />
-                <input
-                    type="text"
-                    name="postTitle"
-                    placeholder="Post Title"
-                    className="w-full p-2 border rounded"
-                    required
-                />
-                <textarea
-                    name="postDescription"
-                    placeholder="Post Description"
-                    className="w-full p-2 border rounded"
-                    rows="4"
-                    required
-                ></textarea>
-                <Select
-                    options={tagOptions}
-                    placeholder="Select a tag (optional)"
-                    isClearable
-                    value={selectedTag}
-                    onChange={setSelectedTag}
-                />
-                <button
-                    type="submit"
-                    className="w-full px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600"
-                >
-                    Add Post
-                </button>
-            </form>
+        <div>
+            {isGoldMember || !postedData ? (
+                <div className="max-w-md mx-auto mt-10 p-5 bg-gray-100 rounded shadow">
+                    <h1 className="text-2xl font-semibold text-center mb-5">Add Post</h1>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <input
+                            type="url"
+                            name="authorImage"
+                            placeholder="Author Image URL"
+                            className="w-full p-2 border rounded"
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="authorName"
+                            placeholder="Author Name"
+                            className="w-full p-2 border rounded"
+                            required
+                        />
+                        <input
+                            type="email"
+                            name="authorEmail"
+                            placeholder="Author Email"
+                            className="w-full p-2 border rounded"
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="postTitle"
+                            placeholder="Post Title"
+                            className="w-full p-2 border rounded"
+                            required
+                        />
+                        <textarea
+                            name="postDescription"
+                            placeholder="Post Description"
+                            className="w-full p-2 border rounded"
+                            rows="4"
+                            required
+                        ></textarea>
+                        <Select
+                            options={tagOptions}
+                            placeholder="Select a tag (optional)"
+                            isClearable
+                            value={selectedTag}
+                            onChange={setSelectedTag}
+                        />
+                        <button
+                            type="submit"
+                            className="w-full px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600"
+                        >
+                            Add Post
+                        </button>
+                    </form>
+                </div>
+            ) : (
+                <div className="max-w-md mx-auto mt-10 text-center">
+                    <p className="mb-4 text-lg font-semibold">
+                        You have reached the maximum post limit. Become a member to add more posts.
+                    </p>
+                    <button
+                        onClick={() => navigate("/membership")}
+                        className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                    >
+                        Become a Member
+                    </button>
+                </div>
+            )}
         </div>
+        
+        
     );
 };
 
 export default AddPost;
+
+

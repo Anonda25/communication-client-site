@@ -31,7 +31,8 @@ const SignUp = () => {
             const response = await axiosPublic.post(`/users`, {
                 name,
                 email,
-                image: image_url
+                image: image_url,
+                // Badge:'Bronze'
             });
 
             if (response.data) {

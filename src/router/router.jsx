@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivetRoute";
 import AllUser from "../Pages/Dashboard/Admin/AllUser/AllUser";
 import Announcement from "../Pages/Dashboard/Dashboad/Announcement/Announcement";
 import Comments from "../Pages/Dashboard/Dashboad/Comment/Comments";
+import MemberShipe from "../Pages/Home/MemberShipe/MemberShipe";
 
 const router = createBrowserRouter([
     {
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'Membership',
-                element: <PrivateRoute><></></PrivateRoute>
+                element: <PrivateRoute><MemberShipe></MemberShipe></PrivateRoute>
             },
             {
                 path: 'post/:id',
@@ -38,7 +39,8 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <SignUp></SignUp>
-            }
+            },
+            
         ]
     },
     {
@@ -58,7 +60,7 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><MyPost></MyPost></PrivateRoute>
             },
             {
-                path: 'comments',
+                path: 'comments/:id',
                 element: <Comments></Comments>
             },
 

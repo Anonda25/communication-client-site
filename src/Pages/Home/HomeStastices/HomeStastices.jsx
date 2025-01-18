@@ -39,7 +39,7 @@ const HomeStastices = ({ post }) => {
             <img
                 src={image}
                 alt="Post"
-                className="w-full rounded-lg mb-4"
+                className="w-full  rounded-lg mb-4"
             />
 
             <div className="">
