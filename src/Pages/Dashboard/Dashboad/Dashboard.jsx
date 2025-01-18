@@ -36,7 +36,22 @@ const Dashboard = () => {
                                     Make Announcement
                                 </Link>
                             </li>
-
+                            <div className="divider">OR</div>
+                            <li>
+                                <Link to="/dashboard/my-profile" className="btn btn-ghost w-full text-left">
+                                    My Profile
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/dashboard/add-post" className="btn btn-ghost w-full text-left">
+                                    Add Post
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/dashboard/my-posts" className="btn btn-ghost w-full text-left">
+                                    My Posts
+                                </Link>
+                            </li>
                             <div className="divider"></div>
                             <li>
                                 <Link to={'/'}> <h1 className="text-xl font-bold ">Home</h1></Link>

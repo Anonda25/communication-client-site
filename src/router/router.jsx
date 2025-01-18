@@ -13,6 +13,8 @@ import AllUser from "../Pages/Dashboard/Admin/AllUser/AllUser";
 import Announcement from "../Pages/Dashboard/Dashboad/Announcement/Announcement";
 import Comments from "../Pages/Dashboard/Dashboad/Comment/Comments";
 import MemberShipe from "../Pages/Home/MemberShipe/MemberShipe";
+import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile/AdminProfile";
+import AdminRoute from "../Pages/Dashboard/Admin/AdminRoute/AdminRoute";
 
 const router = createBrowserRouter([
     {
@@ -66,12 +68,16 @@ const router = createBrowserRouter([
 
             /// admin router
             {
+                path: 'Admin-Profile',
+                element: <AdminRoute><AdminProfile></AdminProfile></AdminRoute>
+            },
+            {
                 path: 'Manage-Users',
-                element: <AllUser></AllUser>
+                element: <AdminRoute><AllUser></AllUser></AdminRoute>
             },
             {
                 path: "Make-Announcement",
-                element: <Announcement></Announcement>
+                element: <AdminRoute><Announcement></Announcement></AdminRoute>
             }
         ]
     }
