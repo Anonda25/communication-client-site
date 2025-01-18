@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const Comments = () => {
+    const {id}=useParams()
+    console.log(id);
     const [comments, setComments] = useState([
         {
             id: 1,
@@ -32,6 +35,8 @@ const Comments = () => {
     ];
 
     const handleFeedbackChange = (id, feedback) => {
+
+        console.log(`Selected feedback for comment ${id}: ${feedback}`);
         setComments((prevComments) =>
             prevComments.map((comment) =>
                 comment.id === id ? { ...comment, feedback } : comment

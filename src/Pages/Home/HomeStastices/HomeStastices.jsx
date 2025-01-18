@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 import UsePublic from "../../../Hooks/UsePublic";
-const HomeStastices = ({ post }) => {
+const HomeStastices = ({ post,}) => {
     const axiosPublic = UsePublic()
     const {
         UserEmail,
