@@ -61,7 +61,7 @@ const Home = () => {
                     />
                 </div>
             </div>
-            <div className="flex gap-3 justify-center items-center ">
+            <div className="flex gap-3 justify-center items-center my-3">
                 <div>
                     <button
                         onClick={() => setSortByPopularity(!sortByPopularity)}
@@ -69,6 +69,13 @@ const Home = () => {
                     >
                         Sort by {sortByPopularity ? "Time" : "Popularity"}
                     </button>
+                </div>
+                <div className="flex gap-4">
+                    <p>Science</p>
+                    <p>Science</p>
+                    <p>Science</p>
+                    <p>Science</p>
+                    <p>Science</p>
                 </div>
             </div>
             {posts.map(post => (
