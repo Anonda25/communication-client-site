@@ -3,8 +3,12 @@ import axios from "axios";
 import HomeStastices from "./HomeStastices/HomeStastices";
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
+import Annusments from "./Annusments";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
+    const axiosSecure = UseAxiosSecure()
     const { TotalPost } = useLoaderData();
     const [searchTerm, setSearchTerm] = useState("");
     const [sortByPopularity, setSortByPopularity] = useState(true);
@@ -30,6 +34,20 @@ const Home = () => {
         },
     });
 
+    const { data: annusment = [] } = useQuery({
+        queryKey: ['annusment'],
+        queryFn: async () => {
+            const { data } = await axiosSecure('/Announcements')
+            console.log(data);
+            return data
+        }
+    })
+
+
+
+    console.log(annusment);
+
+
     const handleparpage = (e) => {
         const num = parseInt(e.target.value);
         setItemsparpage(num);
@@ -50,6 +68,9 @@ const Home = () => {
 
     return (
         <div>
+            <Helmet>
+                <title> Cm || Home</title>
+            </Helmet>
             <div className="bg-[url('./assets/banner1.webp')] h-[300px] w-full">
                 <div className="flex justify-center items-center h-full">
                     <input
@@ -61,7 +82,7 @@ const Home = () => {
                     />
                 </div>
             </div>
-            <div className="flex gap-3 justify-center items-center my-3">
+            <div className="flex gap-3 justify-center items-center my-3 ">
                 <div>
                     <button
                         onClick={() => setSortByPopularity(!sortByPopularity)}
@@ -70,7 +91,7 @@ const Home = () => {
                         Sort by {sortByPopularity ? "Time" : "Popularity"}
                     </button>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 ">
                     <p>Science</p>
                     <p>Science</p>
                     <p>Science</p>
@@ -78,9 +99,11 @@ const Home = () => {
                     <p>Science</p>
                 </div>
             </div>
-            {posts.map(post => (
-                <HomeStastices key={post._id} post={post} />
-            ))}
+            <div className="p-3">
+                {posts.map(post => (
+                    <HomeStastices key={post._id} post={post} />
+                ))}
+            </div>
             <div className="text-center pagination">
                 <button onClick={handlePrevPage} className="btn">Prev</button>
                 {page.map(item => (
@@ -99,6 +122,15 @@ const Home = () => {
                     <option value="20">20</option>
                     <option value="30">30</option>
                 </select>
+            </div>
+            <div className="w-11/12 mx-auto">
+                {annusment.length}
+
+                {annusment && annusment.length > 0 && (
+                    
+                    annusment.map(annus => <Annusments key={annus._id} annus={annus}></Annusments>)
+                   
+                )}
             </div>
         </div>
     );

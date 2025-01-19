@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import UseAxiosSecure from "../../../../Hooks/UseAxiosSecure";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 const Announcement= () => {
     const {
@@ -23,7 +24,10 @@ const Announcement= () => {
     };
 
     return (
-        <div className="max-w-lg mx-auto p-6 bg-white rounded-md shadow-md">
+        <div className=" p-6 bg-white rounded-md shadow-md">
+            <Helmet>
+                <title> Cm || Make Announcement</title>
+            </Helmet>
             <h1 className="text-2xl font-bold text-center mb-4">Create an Announcement</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {/* Author Image */}

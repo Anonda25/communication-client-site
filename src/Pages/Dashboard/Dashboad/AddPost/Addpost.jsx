@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../../Hooks/UseAuth";
 import { useQuery } from "@tanstack/react-query";
 import UsePublic from "../../../../Hooks/UsePublic";
+import { Helmet } from "react-helmet";
 
 const AddPost = () => {
     const [selectedTag, setSelectedTag] = useState(null);
@@ -95,6 +96,9 @@ const AddPost = () => {
     
     return (
         <div>
+            <Helmet>
+                <title> Cm || Add Post</title>
+            </Helmet>
             {isGoldMember || !postedData ? (
                 <div className="max-w-md mx-auto mt-10 p-5 bg-gray-100 rounded shadow">
                     <h1 className="text-2xl font-semibold text-center mb-5">Add Post</h1>

@@ -7,6 +7,7 @@ import { BsFilePost } from "react-icons/bs";
 import { PieChart } from "react-minimal-pie-chart";
 import UsePublic from "../../../../Hooks/UsePublic";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet";
 
 const AdminProfile = () => {
     const { user } = useAuth();
@@ -53,7 +54,9 @@ const AdminProfile = () => {
 
     return (
         <div>
-            AdminProfile
+            <Helmet>
+                <title> Cm || Admin Profile</title>
+            </Helmet>
             <div>
                 <div className="p-6 bg-white shadow-md rounded-lg">
                     {/* Admin Info */}

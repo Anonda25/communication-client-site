@@ -5,13 +5,15 @@ import { useQuery } from "@tanstack/react-query";
 import UsePublic from "../../../../Hooks/UsePublic";
 import useAuth from "../../../../Hooks/UseAuth";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
-const CommentsPage = () => {
+const Comments = () => {
     const { id } = useParams();
  
     const axiosPublic = UsePublic()
     const {user}=useAuth()
     const axiosSeure = UseAxiosSecure();
+
     const { data: comments = [] } = useQuery({
         queryKey: ['comment'],
         queryFn: async () => {
@@ -48,6 +50,7 @@ const CommentsPage = () => {
         console.log('the report', reportData, );
         const data = await axiosPublic.post('/reported', reportData)
         toast.success("Comment has been reported!");
+        
        console.log(data.data);
 
 
@@ -55,6 +58,9 @@ const CommentsPage = () => {
 
     return (
         <div className="p-6">
+            <Helmet>
+                <title> Cm || Comment</title>
+            </Helmet>
             <h2 className="text-2xl font-bold mb-4">Comments</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
@@ -102,7 +108,7 @@ const CommentsPage = () => {
                                 <td>
                                     <button
                                         className="btn btn-error"
-                                        disabled={!feedback[comment?._id] || reported[comment._id]}
+                                        disabled={!feedback[comment?._id] || reported[comment._id] }
                                         onClick={() => handleReportComment(comment?._id, comment?.email, comment?.Title)}
                                     >
                                         {reported[comment?._id] ? "Reported" : "Report"}
@@ -135,4 +141,4 @@ const CommentsPage = () => {
     );
 };
 
-export default CommentsPage;
+export default Comments;

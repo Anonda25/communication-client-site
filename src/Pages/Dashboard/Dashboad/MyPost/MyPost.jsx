@@ -3,6 +3,7 @@ import React from "react";
 import useAuth from "../../../../Hooks/UseAuth";
 import { useNavigate, useParams } from "react-router-dom";
 import UsePublic from "../../../../Hooks/UsePublic";
+import { Helmet } from "react-helmet";
 
 const MyPost = () => {
     const { user } = useAuth();
@@ -33,7 +34,10 @@ const MyPost = () => {
 
 
     return (
-        <div className="max-w-4xl mx-auto mt-10 p-5 bg-gray-100 rounded shadow">
+        <div className="mt-10 p-5 bg-gray-100 rounded shadow">
+            <Helmet>
+                <title> Cm || My Post</title>
+            </Helmet>
             <h1 className="text-2xl font-semibold text-center mb-5">My Posts</h1>
             {posts.length === 0 ? (
                 <p className="text-center text-gray-600">You haven't added any posts yet.</p>

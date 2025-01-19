@@ -3,6 +3,7 @@ import { AuthContext } from "../../../../Providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import UsePublic from "../../../../Hooks/UsePublic";
+import { Helmet } from "react-helmet";
 
 const MyProfile = () => {
     const { user } = useContext(AuthContext);
@@ -34,7 +35,10 @@ const MyProfile = () => {
     
     console.log(users);
     return (
-        <div className="min-h-screen bg-base-200 p-6">
+        <div className=" bg-base-200 p-6">
+            <Helmet>
+                <title> Cm || My Profile</title>
+            </Helmet>
             <div className="card bg-base-100 shadow-xl p-8">
                 {/* User Information */}
                 <div className="flex flex-col md:flex-row items-center space-x-6">
@@ -77,9 +81,6 @@ const MyProfile = () => {
                                     key={post._id}
                                     className="p-4 border rounded-md shadow-sm bg-base-200"
                                 >
-                                   
-                                    
-                                    
                                     <div className="hero bg-base-200 ">
                                         <div className="hero-content flex-col lg:flex-row-reverse gap-5">
                                             <img
@@ -123,6 +124,7 @@ const MyProfile = () => {
                 </div>
             </div>
         </div>
+        
     );
 };
 

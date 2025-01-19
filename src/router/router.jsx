@@ -15,6 +15,7 @@ import Comments from "../Pages/Dashboard/Dashboad/Comment/Comments";
 import MemberShipe from "../Pages/Home/MemberShipe/MemberShipe";
 import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile/AdminProfile";
 import AdminRoute from "../Pages/Dashboard/Admin/AdminRoute/AdminRoute";
+import Reported from "../Pages/Dashboard/Dashboad/Reported/Reported";
 
 const router = createBrowserRouter([
     {
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
             {
                 path: "Make-Announcement",
                 element: <AdminRoute><Announcement></Announcement></AdminRoute>
+            },
+            {
+                path:'Reported-Comments',
+                element:<AdminRoute><Reported></Reported></AdminRoute>
             }
         ]
     }
