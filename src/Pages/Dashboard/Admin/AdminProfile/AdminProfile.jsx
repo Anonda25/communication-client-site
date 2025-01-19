@@ -4,36 +4,63 @@ import useAuth from "../../../../Hooks/UseAuth";
 import UseAxiosSecure from "../../../../Hooks/UseAxiosSecure";
 import { FaUsers } from "react-icons/fa";
 import { BsFilePost } from "react-icons/bs";
+import { PieChart } from "react-minimal-pie-chart";
+import UsePublic from "../../../../Hooks/UsePublic";
+import { useForm } from "react-hook-form";
 
 const AdminProfile = () => {
-    const {user}=useAuth();
-    const axiosSecure= UseAxiosSecure()
+    const { user } = useAuth();
+    const axiosSecure = UseAxiosSecure();
+    const axiosPublic = UsePublic()
+    const { register, handleSubmit, } = useForm()
 
-    const {data:diteals=[]}=useQuery({
-        queryKey:['stats'],
-        queryFn: async()=>{
-            const { data } = await axiosSecure.get('/admin-stats');
-            console.log(data);
-            return data
+    const { data: comments = [], isLoading: loading } = useQuery({
+        queryKey: ['comment'],
+        queryFn: async () => {
+            const { data } = await axiosSecure.get('/comments');
+            return data;
+        },
+    });
+
+    const { data: users = [] } = useQuery({
+        queryKey: ["users"],
+        queryFn: async () => {
+            const { data } = await axiosSecure.get('/users');
+            return data;
+        },
+    });
+
+    const { data: posts = [] } = useQuery({
+        queryKey: ["posts"],
+        queryFn: async () => {
+            const { data } = await axiosSecure.get('/posts');
+            return data;
+        },
+    });
+
+
+
+    const onSubmit = async (tag) => {
+
+        try{
+            const data = await axiosPublic.post('/tags', tag )
+          console.log(data.data);
+
+        }catch(err){
+            console.log(err);
         }
-    })
+    }
 
-    console.log(diteals);
-    const handleTagSubmit = (e) => {
-        e.preventDefault();
-        const tag = e.target.tag.value;
-        console.log(tag);
-    };
     return (
         <div>
             AdminProfile
             <div>
-                <div className="  p-6 bg-white shadow-md rounded-lg">
+                <div className="p-6 bg-white shadow-md rounded-lg">
                     {/* Admin Info */}
-                    <div className="flex  items-center gap-6">
+                    <div className="flex items-center gap-6">
                         <img
                             src={user?.photoURL}
-                            alt={`${user?.photoURL}'s profile`}
+                            alt={`${user?.displayName}'s profile`}
                             className="w-20 h-20 rounded-full border"
                         />
                         <div>
@@ -44,41 +71,76 @@ const AdminProfile = () => {
 
                     {/* Site Stats */}
                     <div className="mt-6">
-                        <div className="flex  lg:flex-row md:flex-row flex-col shadow">
+                        <div className="flex lg:flex-row md:flex-row flex-col shadow">
                             <div className="stat">
                                 <div className="stat-title">Total Comments</div>
-                                <div className="stat-value text-primary  flex gap-3 items-center"><LiaCommentSolid /> {diteals.AllComment}</div>
+                                <div className="stat-value text-primary flex gap-3 items-center">
+                                    <LiaCommentSolid /> {comments.length}
+                                </div>
                             </div>
 
                             <div className="stat">
-                                
-                                <div className="stat-title">Total Post</div>
-                                <div className="stat-value text-secondary  flex gap-3 items-center"> <BsFilePost />{diteals.AllPost}</div>
+                                <div className="stat-title">Total Posts</div>
+                                <div className="stat-value text-secondary flex gap-3 items-center">
+                                    <BsFilePost /> {posts.length}
+                                </div>
                             </div>
 
                             <div className="stat">
-                                <div className="stat-title">Total users</div>
-                                <div className="stat-value flex gap-3 items-center"><FaUsers> </FaUsers>{diteals.Alluser}</div>
+                                <div className="stat-title">Total Users</div>
+                                <div className="stat-value flex gap-3 items-center">
+                                    <FaUsers /> {users.length}
+                                </div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Pie Chart */}
+                    <div className="flex justify-center mt-8">
+                        <PieChart
+                            data={[
+                                { title: 'Posts', value: posts.length || 0, color: '#4CAF50' },
+                                { title: 'Comments', value: comments.length || 0, color: '#FFC107' },
+                                { title: 'Users', value: users.length || 0, color: '#2196F3' },
+                            ]}
+                            radius={50}
+                            label={({ dataEntry }) => `${dataEntry.title}: ${dataEntry.value}`}
+                            labelStyle={{
+                                fontSize: '5px',
+                                fill: '#000',
+                                fontWeight: 'bold',
+                            }}
+                            animate
+                            animationDuration={1000}
+                            animationEasing="ease-out"
+                            style={{ height: '250px', width: '250px' }}
+                        />
                     </div>
 
                     {/* Add Tags */}
                     <div className="mt-8">
                         <h3 className="text-xl font-semibold mb-4">Add Tags</h3>
-                        <form onSubmit={handleTagSubmit} className="flex gap-4">
-                            <input
-                                type="text"
-                                placeholder="Enter tag"
-                                name="tag"
-                                className="flex-1 p-2 border rounded-md focus:outline-none focus:ring focus:ring-green-300"
-                            />
-                            <button
-                                type="submit"
-                                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-                            >
-                                Add Tag
-                            </button>
+                        <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+
+                            <div className="flex justify-between items-center">
+                                <div className="form-control flex-1">
+                                    <label className="label">
+                                        <span className="label-text">Tags</span>
+                                    </label>
+                                    <input
+                                        {...register("tag", { required: true })}
+                                        type="text"
+                                        name="tag"
+                                        placeholder="tags"
+                                        className="input input-bordered w-full"
+                                        required />
+
+                                </div>
+                                <div className="form-control mt-9 ml-3">
+                                    <button className="btn btn-primary ">Submit</button>
+
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

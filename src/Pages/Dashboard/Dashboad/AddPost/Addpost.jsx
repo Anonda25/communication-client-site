@@ -10,13 +10,14 @@ const AddPost = () => {
     const navigate = useNavigate();
     const { user } = useAuth();
     const axiosPublic = UsePublic()
-    const tagOptions = [
-        { value: "Technology", label: "Technology" },
-        { value: "Science", label: "Science" },
-        { value: "Art", label: "Art" },
-        { value: "Health", label: "Health" },
-        { value: "Education", label: "Education" },
-    ];
+    // const tagOptions = [
+    //     { value: "Technology", label: "Technology" },
+    //     { value: "Science", label: "Science" },
+    //     { value: "Art", label: "Art" },
+    //     { value: "Health", label: "Health" },
+    //     { value: "Education", label: "Education" },
+    // ];
+    
 
     const { data: postData, isLoading } = useQuery({
         queryKey: ["postCount", user?.email],
@@ -32,7 +33,21 @@ const AddPost = () => {
             return data;
         },
     });
+    const { data: tags = [], } = useQuery({
+        queryKey: ["tags",],
+        queryFn: async () => {
+            const { data } = await axiosPublic.get(`/tags`);
+            return data;
+        },
+    });
 
+
+
+    const formattedTags = tags.map((tag) => ({
+        value: tag.tag, 
+        label: tag.tag, 
+    }));
+    console.log(tags);
 
     const postCount = postData?.count || 0;
     const isGoldMember = userInfo?.Badge === "Gold";
@@ -120,7 +135,7 @@ const AddPost = () => {
                             required
                         ></textarea>
                         <Select
-                            options={tagOptions}
+                            options={formattedTags}
                             placeholder="Select a tag (optional)"
                             isClearable
                             value={selectedTag}
@@ -154,5 +169,4 @@ const AddPost = () => {
 };
 
 export default AddPost;
-
 

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "./UseAuth";
-import { useEffect } from "react";
 
 
 
@@ -17,7 +16,7 @@ const UseAxiosSecure = () => {
     axiosSecure.interceptors.request.use(function (config) {
         // ToDo something before request is sent
         const token = localStorage.getItem('token');
-        console.log(' this is a bearer tken ', token);
+        // console.log(' this is a bearer tken ', token);
         config.headers.authorization = `Bearer ${token}`
         return config;
     }, function (error) {

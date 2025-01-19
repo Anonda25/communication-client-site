@@ -82,7 +82,6 @@ const Home = () => {
                 <HomeStastices key={post._id} post={post} />
             ))}
             <div className="text-center pagination">
-                <p>Current Page: {currentPage + 1}</p>
                 <button onClick={handlePrevPage} className="btn">Prev</button>
                 {page.map(item => (
                     <button

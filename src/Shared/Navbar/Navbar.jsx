@@ -26,7 +26,7 @@ const Navbar = () => {
     })
     console.log(annusment);
     return (
-        <div className="navbar bg-base-200 px-10 flex justify-between">
+        <div className="navbar bg-base-200 px-10 flex sticky top-0 z-10 justify-between">
             {/* Logo and Website Name */}
             <div className="flex">
                 <Link to={'/'} className="btn btn-ghost text-xl">

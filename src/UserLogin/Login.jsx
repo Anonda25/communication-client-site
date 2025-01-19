@@ -7,7 +7,7 @@ import SocialLogin from "../Hooks/SocialLogin";
 const Login = () => {
     const { signIn, user, loading, signInWithGoogle } = useAuth();
     
-    const { register,    handleSubmit, } = useForm()
+    const { register,handleSubmit, } = useForm()
     const navigate = useNavigate()
    
     const onSubmit = async (value) => {

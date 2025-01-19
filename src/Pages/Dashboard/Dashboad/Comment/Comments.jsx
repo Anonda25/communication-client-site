@@ -1,102 +1,107 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from "react";
+import UseAxiosSecure from "../../../../Hooks/UseAxiosSecure";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import UsePublic from "../../../../Hooks/UsePublic";
+import useAuth from "../../../../Hooks/UseAuth";
 
-const Comments = () => {
-    const {id}=useParams()
-    console.log(id);
-    const [comments, setComments] = useState([
-        {
-            id: 1,
-            email: 'cy.ganderton@example.com',
-            text: 'Great post! Loved the insights.',
-            feedback: '',
-            reported: false,
-        },
-        {
-            id: 2,
-            email: 'hart.hagerty@example.com',
-            text: 'I have some questions about the topic.',
-            feedback: '',
-            reported: false,
-        },
-        {
-            id: 3,
-            email: 'brice.swyre@example.com',
-            text: 'Thanks for sharing this information.',
-            feedback: '',
-            reported: false,
-        },
-    ]);
+const CommentsPage = () => {
+    const { id } = useParams();
+ 
+    const axiosPublic = UsePublic()
+    const {user}=useAuth()
+    const axiosSeure = UseAxiosSecure();
+    const { data: comments = [] } = useQuery({
+        queryKey: ['comment'],
+        queryFn: async () => {
+            const { data } = await axiosSeure.get('/comments');
+            return data;
+        }
+    });
+    
 
-    const feedbackOptions = [
-        'Inappropriate Content',
-        'Spam',
-        'Harassment',
-    ];
 
-    const handleFeedbackChange = (id, feedback) => {
+    const singleData = comments.filter(comment => comment.postId === id);
 
-        console.log(`Selected feedback for comment ${id}: ${feedback}`);
-        setComments((prevComments) =>
-            prevComments.map((comment) =>
-                comment.id === id ? { ...comment, feedback } : comment
-            )
-        );
+    const [feedback, setFeedback] = useState({});
+    const [reported, setReported] = useState({});
+    const [selectedComment, setSelectedComment] = useState("");
+
+
+    const handleFeedbackChange = (id, value) => {
+        setFeedback((prev) => ({ ...prev, [id]: value }));
     };
 
-    const handleReport = (id) => {
-        setComments((prevComments) =>
-            prevComments.map((comment) =>
-                comment.id === id ? { ...comment, reported: true } : comment
-            )
-        );
+
+    const handleReport = (id, email, Title) => {
+        
+        const reportData = {
+            commentId: id,
+            feedback: feedback[id],
+            commenter: email,
+            PostTitle: Title
+        };
+        setReported((prev) => ({ ...prev, [id]: true }));
+        alert("Comment has been reported!");
+        console.log('the report', reportData, );
+        // axiosPublic.post('/comments')
+
+
     };
 
     return (
-        <div>
+        <div className="p-6">
+            <h2 className="text-2xl font-bold mb-4">Comments</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
-                    {/* Head */}
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Email</th>
                             <th>Comment</th>
                             <th>Feedback</th>
-                            <th>Actions</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {comments.map((comment) => (
-                            <tr key={comment.id} className="bg-base-200">
-                                <th>{comment.id}</th>
-                                <td>{comment.email}</td>
-                                <td>{comment.text}</td>
+                        {singleData.map((comment) => (
+                            <tr key={comment?._id}>
+                                <td>{comment?.email}</td>
+                                <td>
+                                    {comment?.comment?.length > 20 ? (
+                                        <>
+                                            {comment.comment.slice(0, 20)}...
+                                            <button
+                                                className="text-blue-500 ml-2"
+                                                onClick={() => setSelectedComment(comment.comment)}
+                                            >
+                                                Read More
+                                            </button>
+                                        </>
+                                    ) : (
+                                        comment?.comment
+                                    )}
+                                </td>
                                 <td>
                                     <select
-                                        className="select select-bordered"
-                                        value={comment.feedback}
+                                        className="select select-bordered w-full max-w-xs"
+                                        value={feedback[comment?._id] || ""}
                                         onChange={(e) =>
-                                            handleFeedbackChange(comment.id, e.target.value)
+                                            handleFeedbackChange(comment?._id, e.target.value)
                                         }
                                     >
-                                        <option value="" disabled>
-                                            Select Feedback
-                                        </option>
-                                        {feedbackOptions.map((option, index) => (
-                                            <option key={index} value={option}>
-                                                {option}
-                                            </option>
-                                        ))}
+                                        <option value="">Select Feedback</option>
+                                        <option value="Offensive Content">Offensive Content</option>
+                                        <option value="Spam">Spam</option>
+                                        <option value="Irrelevant">Irrelevant</option>
                                     </select>
                                 </td>
                                 <td>
                                     <button
-                                        className="btn btn-sm btn-error"
-                                        onClick={() => handleReport(comment.id)}
-                                        disabled={comment.reported || !comment.feedback}
+                                        className="btn btn-error"
+                                        disabled={!feedback[comment?._id] || reported[comment._id]}
+                                        onClick={() => handleReport(comment?._id, comment?.email, comment?.Title)}
                                     >
-                                        {comment.reported ? 'Reported' : 'Report'}
+                                        {reported[comment?._id] ? "Reported" : "Report"}
                                     </button>
                                 </td>
                             </tr>
@@ -104,8 +109,26 @@ const Comments = () => {
                     </tbody>
                 </table>
             </div>
+
+            {/* Modal for full comment */}
+            {selectedComment && (
+                <div className="modal modal-open">
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg">Full Comment</h3>
+                        <p>{selectedComment}</p>
+                        <div className="modal-action">
+                            <button
+                                className="btn"
+                                onClick={() => setSelectedComment("")}
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
 
-export default Comments;
+export default CommentsPage;

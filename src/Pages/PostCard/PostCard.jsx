@@ -5,6 +5,7 @@ import { FaShare } from "react-icons/fa";
 import { useState } from "react";
 import ShareModal from "../Dashboard/Modal/shareModal";
 import UsePublic from "../../Hooks/UsePublic";
+import useAuth from "../../Hooks/UseAuth";
 
 
 
@@ -12,6 +13,7 @@ const PostCard = () => {
     const { id } = useParams();
     const axiosPublic = UsePublic();
     const [comment, setComment] = useState("");
+    const {user}=useAuth()
     const [isModalOpen, setIsModalOpen] = useState(false); 
     // Fetch post data
     const { data: post=[], isLoading, refetch } = useQuery({
@@ -52,6 +54,7 @@ const PostCard = () => {
         postTitle,
         tag,
         time,
+        userEmail,
         _id
     } = post;
 
@@ -62,7 +65,8 @@ const PostCard = () => {
             postId: _id,
             comment,
             Name: authorName,
-            Title: postTitle
+            Title: postTitle,
+            email: user?.email
         };
         await axiosPublic.post(`/comments`, commentData)
         setComment("");
