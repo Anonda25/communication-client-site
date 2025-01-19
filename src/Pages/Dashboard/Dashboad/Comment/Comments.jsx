@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import UsePublic from "../../../../Hooks/UsePublic";
 import useAuth from "../../../../Hooks/UseAuth";
+import toast from "react-hot-toast";
 
 const CommentsPage = () => {
     const { id } = useParams();
@@ -28,23 +29,26 @@ const CommentsPage = () => {
     const [selectedComment, setSelectedComment] = useState("");
 
 
-    const handleFeedbackChange = (id, value) => {
+    const handleFeedBack = (id, value) => {
         setFeedback((prev) => ({ ...prev, [id]: value }));
     };
 
 
-    const handleReport = (id, email, Title) => {
+    const handleReportComment = async(id, email, Title) => {
         
         const reportData = {
             commentId: id,
             feedback: feedback[id],
             commenter: email,
-            PostTitle: Title
+            PostTitle: Title,
+            status:'pending'
         };
         setReported((prev) => ({ ...prev, [id]: true }));
-        alert("Comment has been reported!");
+        
         console.log('the report', reportData, );
-        // axiosPublic.post('/comments')
+        const data = await axiosPublic.post('/reported', reportData)
+        toast.success("Comment has been reported!");
+       console.log(data.data);
 
 
     };
@@ -86,7 +90,7 @@ const CommentsPage = () => {
                                         className="select select-bordered w-full max-w-xs"
                                         value={feedback[comment?._id] || ""}
                                         onChange={(e) =>
-                                            handleFeedbackChange(comment?._id, e.target.value)
+                                            handleFeedBack(comment?._id, e.target.value)
                                         }
                                     >
                                         <option value="">Select Feedback</option>
@@ -99,7 +103,7 @@ const CommentsPage = () => {
                                     <button
                                         className="btn btn-error"
                                         disabled={!feedback[comment?._id] || reported[comment._id]}
-                                        onClick={() => handleReport(comment?._id, comment?.email, comment?.Title)}
+                                        onClick={() => handleReportComment(comment?._id, comment?.email, comment?.Title)}
                                     >
                                         {reported[comment?._id] ? "Reported" : "Report"}
                                     </button>

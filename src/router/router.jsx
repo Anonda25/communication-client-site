@@ -51,6 +51,7 @@ const router = createBrowserRouter([
         element: <Dashboard></Dashboard>,
         children: [
             {
+                // index:true,
                 path: 'my-profile',
                 element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
             },

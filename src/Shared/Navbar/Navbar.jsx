@@ -1,13 +1,14 @@
-
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/UseAuth";
 import toast from "react-hot-toast";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import {  useQuery } from "@tanstack/react-query";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
+import useAdmin from "../../Hooks/useAdmin";
 
 const Navbar = () => {
     const { user, logOut } = useAuth()
     const axiosSecure = UseAxiosSecure()
+    const [isAdmin]=useAdmin()
     const handleLogout = () => {
         logOut()
             .then(() => {
@@ -24,7 +25,7 @@ const Navbar = () => {
             return data
         }
     })
-    console.log(annusment);
+   
     return (
         <div className="navbar bg-base-200 px-10 flex sticky top-0 z-10 justify-between">
             {/* Logo and Website Name */}
@@ -87,7 +88,9 @@ const Navbar = () => {
                                 <span className="font-medium">{user.displayName}</span>
                             </li>
                             <li>
-                                <Link to="/dashboard">Dashboard</Link>
+                               {
+                                        isAdmin ? <Link to={"/dashboard/Admin-Profile"}>Dashboard</Link> : <Link to={"/dashboard/my-profile"}>Dashboard</Link>
+                               }
                             </li>
                             <li>
                                 <button onClick={handleLogout}>Logout</button>
