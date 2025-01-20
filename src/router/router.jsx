@@ -16,12 +16,13 @@ import MemberShipe from "../Pages/Home/MemberShipe/MemberShipe";
 import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile/AdminProfile";
 import AdminRoute from "../Pages/Dashboard/Admin/AdminRoute/AdminRoute";
 import Reported from "../Pages/Dashboard/Dashboad/Reported/Reported";
+import ErrorPage from "../Shared/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout></MainLayout>,
-        errorElement: <></>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
