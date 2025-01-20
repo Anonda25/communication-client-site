@@ -27,7 +27,7 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>,
-                loader: () => fetch(`http://localhost:9000/pagination`)
+                loader: () => fetch(`https://full-stack-server-mu.vercel.app/pagination`)
             },
             {
                 path: 'Membership',

@@ -30,7 +30,7 @@ const Home = () => {
                     search: searchTerm,
                     sortByPopularity,
                 },
-                withCredentials: true,
+                // withCredentials: true,
             });
             return data;
         },
