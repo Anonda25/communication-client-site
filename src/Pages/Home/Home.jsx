@@ -45,15 +45,15 @@ const Home = () => {
         }
     })
 
-    const {data:tags=[]}=useQuery({
-        queryKey:['tag'],
-        queryFn:async()=>{
+    const { data: tags = [] } = useQuery({
+        queryKey: ['tag'],
+        queryFn: async () => {
             const { data } = await axiosPiblic.get('/tags')
             // console.log(data);
             return data
         }
     })
-console.log(tags);
+    // console.log(tags);
 
     // console.log(annusment);
 
@@ -107,9 +107,9 @@ console.log(tags);
                         Sort by {sortByPopularity ? "Time" : "Popularity"}
                     </button>
                 </div>
-               
+
             </div>
-            
+
             <div className="p-3">
                 {posts.map(post => (
                     <HomeStastices key={post._id} post={post} />
@@ -138,9 +138,9 @@ console.log(tags);
                 {annusment.length}
 
                 {annusment && annusment.length > 0 && (
-                    
+
                     annusment.map(annus => <Annusments key={annus._id} annus={annus}></Annusments>)
-                   
+
                 )}
             </div>
         </div>

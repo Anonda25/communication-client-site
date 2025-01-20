@@ -76,7 +76,7 @@ const CheckoutForm = () => {
             console.log('[error]', error);
             setError(error.message)
         } else {
-            console.log('[PaymentMethod]', paymentMethod);
+            // console.log('[PaymentMethod]', paymentMethod);
             setError('')
         }
 
@@ -97,9 +97,9 @@ const CheckoutForm = () => {
             console.log("ConfirmError", confirmError);
             
         } else {
-            console.log('PaymentIntent', paymentIntent);
+            // console.log('PaymentIntent', paymentIntent);
             if (paymentIntent.status === 'succeeded') {
-                console.log(`Payment succeeded! Payment ID: ${paymentIntent.id}`);
+                // console.log(`Payment succeeded! Payment ID: ${paymentIntent.id}`);
                 try {
                     const response = await axiosPiblic.patch(`/users/badge/${user?.email}`, );
                     toast.success('Payment succeeded & Badge updated😍',);
