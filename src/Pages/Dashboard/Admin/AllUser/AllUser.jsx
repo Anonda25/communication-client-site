@@ -31,7 +31,7 @@ const AllUser = () => {
         console.log(data);
         setSearchTerm(data)
     }
-    console.log(users);
+    // console.log(users);
     return (
         <div>
             <Helmet>

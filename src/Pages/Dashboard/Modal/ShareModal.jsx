@@ -3,7 +3,7 @@ import { FacebookShareButton, FacebookIcon, WhatsappShareButton, WhatsappIcon, T
 const ShareModal = ({ onClose, shareUrl }) => {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <div className="bg-white p-6 rounded-lg shadow-lg lg:w-96">
                 <h3 className="text-lg font-bold mb-4">Share this Post</h3>
                 <div className="space-x-8 ">
                     <FacebookShareButton 
