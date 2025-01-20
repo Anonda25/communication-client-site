@@ -5,7 +5,7 @@ const ErrorPage = () => {
     return (
         <div className='text-center my-10 space-y-2'>
             <img src={errorImg} alt="" className='w-[400px] h-[400px] mx-auto'/>
-            <Link to={'/'}><p className='btn btn-accent btn-outline'> Back To Home</p></Link>
+            <Link to={'/'}><p className='btn btn-accent btn-outline'> Go To Home</p></Link>
         </div>
     );
 };
