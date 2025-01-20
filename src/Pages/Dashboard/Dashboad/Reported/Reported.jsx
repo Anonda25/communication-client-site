@@ -2,20 +2,29 @@ import { useQuery } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../../Hooks/UseAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import DynamicTitle from "../../../../Components/DynamicTitle";
+import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 const Reported = () => {
 const axiosSecure=UseAxiosSecure()
-
-    const {data:report=[]}=useQuery({
+    
+    const {data:report=[], refetch}=useQuery({
         queryKey: ['reported'],
         queryFn: async()=>{
             const { data } = await axiosSecure.get('/reported')
-            console.log(data);
+           
             return data
         }
     })
-    console.log(report);
+    
+ const handleReportDelete=async(id)=>{
+    
+    const {data}= await axiosSecure.delete(`/reported/${id}`);
+    toast.success(' reported deleted')
+    refetch()
+   
+ }
     return (
         <div>
             <Helmet>
@@ -37,7 +46,7 @@ const axiosSecure=UseAxiosSecure()
                                 <th>Commenter Email</th>
                                 <th>Post Title</th>
                                 <th>Feedback</th>
-                                <th>Status</th>
+                                
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -49,9 +58,9 @@ const axiosSecure=UseAxiosSecure()
                                     <th>{rep?.commenter}</th>
                                     <td>{rep.PostTitle}</td>
                                     <td>{rep?.feedback}</td>
-                                    <td>{rep?.status}</td>
+                                    
                                     <td>
-                                        <button>Delete</button>
+                                        <button onClick={() => handleReportDelete(rep._id)}>Delete</button>
                                     </td>
                                 </tr>)
                             }

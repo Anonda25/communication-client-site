@@ -12,7 +12,6 @@ const Login = () => {
     const navigate = useNavigate()
    
     const onSubmit = async (value) => {
-        
        
         const {email, password} = value
         try {

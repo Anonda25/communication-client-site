@@ -135,8 +135,6 @@ const Home = () => {
                 </select>
             </div>
             <div className="w-11/12 mx-auto">
-                {annusment.length}
-
                 {annusment && annusment.length > 0 && (
 
                     annusment.map(annus => <Annusments key={annus._id} annus={annus}></Annusments>)
