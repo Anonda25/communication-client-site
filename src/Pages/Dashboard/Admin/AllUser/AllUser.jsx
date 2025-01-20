@@ -75,7 +75,7 @@ const AllUser = () => {
                                         {
                                             user.role === 'admin' ? <button className='bg-blue-500  px-2  rounded-md' >
                                                 Admin
-                                            </button> : <button  className='bg-accent  px-2  rounded-md' onClick={() => handlemakeAdmin(user)}>
+                                            </button> : <button className='bg-[#f79145]  px-2  rounded-md' onClick={() => handlemakeAdmin(user)}>
                                               Make Admin 
                                             </button>
                                         }
