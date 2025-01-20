@@ -28,10 +28,11 @@ const AllUser = () => {
    
     const handleshearch=(e)=>{
         const data = e.target.value;
-        console.log(data);
+        // console.log(data);
         setSearchTerm(data)
     }
-    // console.log(users);
+    // console.log(use
+    // rs);
     return (
         <div>
             <Helmet>
