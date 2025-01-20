@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import UseAxiosSecure from '../../../../Hooks/UseAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { FaUsers } from 'react-icons/fa';
@@ -7,13 +7,13 @@ import DynamicTitle from '../../../../Components/DynamicTitle';
 import Loading from '../../../../Components/Loading';
 
 const AllUser = () => {
-
+    const [searchTerm, setSearchTerm] = useState("")
     const axiosSecure = UseAxiosSecure()
     // Fetch posts for the current user
-    const { data: users = [], isLoading, refetch } = useQuery({
-        queryKey: ["users", ],
+    const { data: users = [], refetch } = useQuery({
+        queryKey: ["users", searchTerm ],
         queryFn: async () => {
-            const { data } = await axiosSecure.get('/users',);
+            const { data } = await axiosSecure.get(`/users?name=${searchTerm}`,);
             return data;
         }
     });
@@ -21,13 +21,17 @@ const AllUser = () => {
     const handlemakeAdmin=(user)=>{
          axiosSecure.patch(`/users/admin/${user._id}`)
          .then(res=>{
-            console.log(res.data);
+            // console.log(res.data);
              refetch()
          })
     }
-    if (isLoading) {
-        return <Loading></Loading>
+   
+    const handleshearch=(e)=>{
+        const data = e.target.value;
+        console.log(data);
+        setSearchTerm(data)
     }
+    console.log(users);
     return (
         <div>
             <Helmet>
@@ -37,7 +41,13 @@ const AllUser = () => {
                 <DynamicTitle heading="All User" subTitle="Total User"></DynamicTitle>
             </div>
             <div className=' my-2'>
-                <input type="text" placeholder="Type The user Name" className="input input-bordered w-full max-w-xs" />
+                <input
+                    type="text"
+                    placeholder="Search by username"
+                    value={searchTerm}
+                    onChange={handleshearch}
+                    className="border border-gray-300 rounded px-3 py-2 w-80"
+                />
             </div>
            
 
