@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import UseAxiosSecure from "../../../../Hooks/UseAxiosSecure";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+import DynamicTitle from "../../../../Components/DynamicTitle";
 
 
 const Reported = () => {
@@ -20,6 +21,11 @@ const axiosSecure=UseAxiosSecure()
             <Helmet>
                 <title> Cm || Reported Activities</title>
             </Helmet>
+            <div>
+                <DynamicTitle heading="Reported" subTitle="Admin Activities">
+
+                </DynamicTitle>
+            </div>
 
             <div className="p-6">
                 <h2 className="text-2xl font-bold mb-4">Reported Activities</h2>

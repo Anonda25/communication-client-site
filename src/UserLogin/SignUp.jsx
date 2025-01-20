@@ -1,18 +1,18 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import axios from "axios";
 import useAuth from "../Hooks/UseAuth";
 import toast from "react-hot-toast";
 import UsePublic from "../Hooks/UsePublic";
 import SocialLogin from "../Hooks/SocialLogin";
-
+import img from "../assets/signIn.jpg"
+import { Helmet } from "react-helmet-async";
 const SignUp = () => {
     const axiosPublic = UsePublic()
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const { handleRegister, updateUserProfile,  user } = useAuth();
+    const { handleRegister, updateUserProfile, user } = useAuth();
 
     // On submit, handle form data and image upload
     const onSubmit = async (value) => {
@@ -32,7 +32,6 @@ const SignUp = () => {
                 name,
                 email,
                 image: image_url,
-                // Badge:'Bronze'
             });
 
             if (response.data) {
@@ -52,95 +51,93 @@ const SignUp = () => {
     };
 
 
- 
+
 
     return (
-        <div className="hero bg-base-200 min-h-screen">
-            <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
-                    <form onSubmit={handleSubmit(onSubmit)} className="card-body">
-                        {/* Name */}
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Name : </span>
-                            </label>
-                            <input
-                                {...register("name", { required: "Name is required" })}
-                                type="text"
-                                placeholder="Enter your name"
-                                className="input input-bordered"
-                            />
-                            {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
-                        </div>
+        <div className="flex flex-col lg:flex-row p-10 gap-10">
+            <Helmet>
+                <title>cm || SignUp</title>
+            </Helmet>
+            
+            <div className="flex-1">
+             
+                <img src={img} alt="" />
+            </div>
+            <div className="flex-1">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 my-5">
+                    {/* Name */}
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Name  </span>
+                        </label>
+                        <input
+                            {...register("name", { required: "Name is required" })}
+                            type="text"
+                            placeholder="Enter your name"
+                            className="input input-bordered"
+                        />
+                        {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
+                    </div>
 
-                        {/* Image */}
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Photo : </span>
-                            </label>
-                            <input
-                                {...register("file", { required: "Profile picture is required" })}
-                                type="file"
-                                className="input "
-                            />
-                            {errors.file && <span className="text-red-500 text-sm">{errors.file.message}</span>}
-                        </div>
+                    {/* Image */}
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Photo  </span>
+                        </label>
+                        <input
+                            {...register("file", { required: "Profile picture is required" })}
+                            type="file"
+                            className=" "
+                        />
+                        {errors.file && <span className="text-red-500 text-sm">{errors.file.message}</span>}
+                    </div>
 
-                        {/* Email */}
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
-                            <input
-                                {...register("email", { required: "Email is required" })}
-                                type="email"
-                                placeholder="Enter your email"
-                                className="input input-bordered"
-                            />
-                            {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
-                        </div>
+                    {/* Email */}
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Email</span>
+                        </label>
+                        <input
+                            {...register("email", { required: "Email is required" })}
+                            type="email"
+                            placeholder="Enter your email"
+                            className="input input-bordered"
+                        />
+                        {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
+                    </div>
 
-                        {/* Password */}
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Password</span>
-                            </label>
-                            <input
-                                {...register("password", {
-                                    required: "Password is required",
-                                    minLength: { value: 6, message: "Password must be at least 6 characters" }
-                                })}
-                                type="password"
-                                placeholder="Enter your password"
-                                className="input input-bordered"
-                            />
-                            {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
-                        </div>
+                    {/* Password */}
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Password</span>
+                        </label>
+                        <input
+                            {...register("password", {
+                                required: "Password is required",
+                                minLength: { value: 6, message: "Password must be at least 6 characters" }
+                            })}
+                            type="password"
+                            placeholder="Enter your password"
+                            className="input input-bordered"
+                        />
+                        {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
+                    </div>
 
-                        {/* Submit Button */}
-                        <div className="form-control mt-6">
-                            <button type="submit" className="btn btn-primary">Register</button>
-                        </div>
+                    {/* Submit Button */}
+                    <div className="form-control mt-6">
+                        <button type="submit" className="btn btn-outline  btn-primary w-full">Register</button>
+                        {/* Social Login */}
+                        <div className="divider">OR</div>
+                        <SocialLogin></SocialLogin>
+                    </div>
 
-                        {/* Link to Login */}
-                        <p className="text-sm text-gray-600">
-                            Already have an account?{" "}
-                            <Link to="/login" className="text-green-500">Login</Link>
-                        </p>
-                    </form>
-
-                    {/* Social Login */}
-                    <div className="divider">OR</div>
-                    <SocialLogin></SocialLogin>
-                </div>
-
-                {/* Welcome Text */}
-                <div className="text-center lg:text-left">
-                    <h1 className="text-5xl font-bold">Join Us Now!</h1>
-                    <p className="py-6 w-3/4">
-                        Experience a vibrant community with exciting badges and more. Get started today!
+                    {/* Link to Login */}
+                    <p className="text-xl text-gray-600">
+                        Already have an account?{" "}
+                        <Link to="/login" className="text-green-500 underline">Login</Link>
                     </p>
-                </div>
+                </form>
+
             </div>
         </div>
     );

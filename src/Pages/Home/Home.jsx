@@ -5,10 +5,12 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import Annusments from "./Annusments";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
+import UsePublic from "../../Hooks/UsePublic";
 
 const Home = () => {
     const axiosSecure = UseAxiosSecure()
+    const axiosPiblic = UsePublic()
     const { TotalPost } = useLoaderData();
     const [searchTerm, setSearchTerm] = useState("");
     const [sortByPopularity, setSortByPopularity] = useState(true);
@@ -38,14 +40,22 @@ const Home = () => {
         queryKey: ['annusment'],
         queryFn: async () => {
             const { data } = await axiosSecure('/Announcements')
-            console.log(data);
+            // console.log(data);
             return data
         }
     })
 
+    const {data:tags=[]}=useQuery({
+        queryKey:['tag'],
+        queryFn:async()=>{
+            const { data } = await axiosPiblic.get('/tags')
+            // console.log(data);
+            return data
+        }
+    })
+console.log(tags);
 
-
-    console.log(annusment);
+    // console.log(annusment);
 
 
     const handleparpage = (e) => {
@@ -82,6 +92,12 @@ const Home = () => {
                     />
                 </div>
             </div>
+            <div className="flex gap-4 items-center justify-center my-3 ">
+                {
+                    tags.map(tag => <p className="bg-[#dedcff] text-[#050315] px-2 rounded-full" key={tag._id}>{tag.tag}</p>)
+                }
+
+            </div>
             <div className="flex gap-3 justify-center items-center my-3 ">
                 <div>
                     <button
@@ -91,14 +107,9 @@ const Home = () => {
                         Sort by {sortByPopularity ? "Time" : "Popularity"}
                     </button>
                 </div>
-                <div className="flex gap-4 ">
-                    <p>Science</p>
-                    <p>Science</p>
-                    <p>Science</p>
-                    <p>Science</p>
-                    <p>Science</p>
-                </div>
+               
             </div>
+            
             <div className="p-3">
                 {posts.map(post => (
                     <HomeStastices key={post._id} post={post} />

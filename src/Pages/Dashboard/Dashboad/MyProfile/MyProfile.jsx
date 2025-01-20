@@ -3,7 +3,7 @@ import { AuthContext } from "../../../../Providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import UsePublic from "../../../../Hooks/UsePublic";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const MyProfile = () => {
     const { user } = useContext(AuthContext);
@@ -33,7 +33,7 @@ const MyProfile = () => {
 
     const member = users?.Badge;
     
-    console.log(users);
+    // console.log(users);
     return (
         <div className=" bg-base-200 p-6">
             <Helmet>

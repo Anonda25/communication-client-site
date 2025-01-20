@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import UsePublic from "../../../../Hooks/UsePublic";
 import useAuth from "../../../../Hooks/UseAuth";
 import toast from "react-hot-toast";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const Comments = () => {
     const { id } = useParams();

@@ -1,7 +1,7 @@
-import React from 'react';
+
 
 const Annusments = ({ annus }) => {
-    console.log(annus);
+    // console.log(annus);
     const { authorImage, authorName, description, title }=annus;
     return (
         <div>

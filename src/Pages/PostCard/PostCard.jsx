@@ -4,8 +4,8 @@ import { format } from "date-fns";
 import { FaShare } from "react-icons/fa";
 import { useState } from "react";
 import ShareModal from "../Dashboard/Modal/shareModal";
-import UsePublic from "../../Hooks/UsePublic";
 import useAuth from "../../Hooks/UseAuth";
+import UsePublic from "../../Hooks/UsePublic";
 
 
 

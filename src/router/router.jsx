@@ -44,7 +44,7 @@ const router = createBrowserRouter([
                 path: "/register",
                 element: <SignUp></SignUp>
             },
-            
+
         ]
     },
     {
@@ -66,25 +66,34 @@ const router = createBrowserRouter([
             },
             {
                 path: 'comments/:id',
-                element: <Comments></Comments>
+                element: <PrivateRoute><Comments></Comments></PrivateRoute>
             },
 
             /// admin router
             {
                 path: 'Admin-Profile',
-                element: <AdminRoute><AdminProfile></AdminProfile></AdminRoute>
+                element: <PrivateRoute>
+                    <AdminRoute><AdminProfile>
+                    </AdminProfile></AdminRoute>
+                </PrivateRoute>
             },
             {
                 path: 'Manage-Users',
-                element: <AdminRoute><AllUser></AllUser></AdminRoute>
+                element: <PrivateRoute>
+                    <AdminRoute><AllUser></AllUser></AdminRoute>
+                </PrivateRoute>
             },
             {
                 path: "Make-Announcement",
-                element: <AdminRoute><Announcement></Announcement></AdminRoute>
+                element:<PrivateRoute>
+                    <AdminRoute><Announcement></Announcement></AdminRoute>
+                </PrivateRoute>
             },
             {
-                path:'Reported-Comments',
-                element:<AdminRoute><Reported></Reported></AdminRoute>
+                path: 'Reported-Comments',
+                element: <PrivateRoute>
+                    <AdminRoute><Reported></Reported></AdminRoute>
+                </PrivateRoute>
             }
         ]
     }

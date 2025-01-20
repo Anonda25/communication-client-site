@@ -21,19 +21,19 @@ const Navbar = () => {
         queryKey: ['annusment'],
         queryFn: async () => {
             const { data } = await axiosSecure('/Announcements')
-            console.log(data);
+            // console.log(data);
             return data
         }
     })
    
     return (
-        <div className="navbar bg-base-200 px-10 flex sticky top-0 z-10 justify-between">
+        <div className="navbar bg-base-200 lg:px-10 flex sticky top-0 z-10 justify-between">
             {/* Logo and Website Name */}
             <div className="flex">
                 <Link to={'/'} className="btn btn-ghost text-xl">
                     Comonication
                 </Link>
-                <div className="ml-10 flex gap-5 items-center justify-around">
+                <div className="lg:ml-10 flex gap-2 lg:gap-5 items-center justify-around">
                     <Link to={'/'}>Home</Link>
                     <Link to={'/Membership'}>Membership</Link>
                   
@@ -62,9 +62,9 @@ const Navbar = () => {
             </div>
 
             {/* Navigation Items */}
-            <div className="flex-none">
+            <div className="">
                 {!user ? (
-                    <Link to="/login" className="btn btn-primary">
+                    <Link to="/login" className="btn btn-primary  pr-6">
                         Join Us
                     </Link>
                 ) : (

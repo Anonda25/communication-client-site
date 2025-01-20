@@ -4,6 +4,7 @@ import UseAxiosSecure from '../../../Hooks/UseAxiosSecure';
 import useAuth from '../../../Hooks/UseAuth';
 import { useQuery } from '@tanstack/react-query';
 import UsePublic from '../../../Hooks/UsePublic';
+import toast from 'react-hot-toast';
 
 const CheckoutForm = () => {
     const [error, setError]=useState();
@@ -26,8 +27,8 @@ const CheckoutForm = () => {
             return data;
         },
     });
-    console.log(userData?._id);
-    // console.log(userData[0]?._id);
+    // console.log(userData?._id);
+    
 
     const TotalPrice = cart.reduce((total, items) => total + items.price, 0)
 
@@ -36,7 +37,7 @@ const CheckoutForm = () => {
         if (TotalPrice > 0) {
             AxiosSecure.post('/payment', { price: TotalPrice })
                 .then(res => {
-                    console.log(res.data.clientSecret);
+                    // console.log(res.data.clientSecret);
                     setClientSecret(res.data.clientSecret);
                 })
         }
@@ -101,7 +102,7 @@ const CheckoutForm = () => {
                 console.log(`Payment succeeded! Payment ID: ${paymentIntent.id}`);
                 try {
                     const response = await axiosPiblic.patch(`/users/badge/${user?.email}`, );
-                    console.log('Badge updated:', response.data);
+                    toast.success('Payment succeeded & Badge updated😍',);
                 } catch (error) {
                     console.error('Error updating badge:', error);
                 }
@@ -128,7 +129,7 @@ const CheckoutForm = () => {
                         },
                     }}
                 />
-                <button type="submit" className='mt-10 btn btn-accent' disabled={!stripe || !clientSecret}>
+                <button type="submit" className='mt-10 btn btn-accent w-full' disabled={!stripe || !clientSecret}>
                     Pay
                 </button>
                

@@ -3,7 +3,7 @@ import React from "react";
 import useAuth from "../../../../Hooks/UseAuth";
 import { useNavigate, useParams } from "react-router-dom";
 import UsePublic from "../../../../Hooks/UsePublic";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const MyPost = () => {
     const { user } = useAuth();
@@ -23,7 +23,7 @@ const MyPost = () => {
     const handleDelete = (postId) => {
         axiosPublic.delete(`/posts/${postId}`)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 refetch()
             })
     };

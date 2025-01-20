@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import UseAxiosSecure from "../../../../Hooks/UseAxiosSecure";
 import toast from "react-hot-toast";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const Announcement= () => {
     const {

@@ -20,16 +20,16 @@ const HomeStastices = ({ post,}) => {
         userImage,
         _id } = post
 
-    const { data: comments = [] } = useQuery({
+    const { data: comments = [] , } = useQuery({
         queryKey: ['comments'],
         queryFn: async () => {
             const { data } = await axiosPublic.get('/comments')
-            console.log(data);
+            // console.log(data);
             return data
         }
     })
 
-  
+   
 
     const Comments = comments.filter((comment) => comment.postId === _id);
     return (

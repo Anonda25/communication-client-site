@@ -7,7 +7,7 @@ import { BsFilePost } from "react-icons/bs";
 import { PieChart } from "react-minimal-pie-chart";
 import UsePublic from "../../../../Hooks/UsePublic";
 import { useForm } from "react-hook-form";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const AdminProfile = () => {
     const { user } = useAuth();

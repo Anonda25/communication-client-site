@@ -2,7 +2,9 @@ import React from 'react';
 import UseAxiosSecure from '../../../../Hooks/UseAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { FaUsers } from 'react-icons/fa';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
+import DynamicTitle from '../../../../Components/DynamicTitle';
+import Loading from '../../../../Components/Loading';
 
 const AllUser = () => {
 
@@ -23,15 +25,21 @@ const AllUser = () => {
              refetch()
          })
     }
+    if (isLoading) {
+        return <Loading></Loading>
+    }
     return (
         <div>
             <Helmet>
                 <title> Cm || Manage Users</title>
             </Helmet>
-           <div>
-                <h1 className='text-2xl'>All User</h1>
-                <h1 className='text-2xl'>Total User{users.length}</h1>
-           </div>
+            <div>
+                <DynamicTitle heading="All User" subTitle="Total User"></DynamicTitle>
+            </div>
+            <div className=' my-2'>
+                <input type="text" placeholder="Type The user Name" className="input input-bordered w-full max-w-xs" />
+            </div>
+           
 
            <div>
                 <div className="overflow-x-scroll">

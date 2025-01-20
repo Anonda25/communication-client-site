@@ -2,27 +2,31 @@ import { Elements } from '@stripe/react-stripe-js';
 import React from 'react';
 import CheckoutForm from './CheckoutForm';
 import { loadStripe } from '@stripe/stripe-js';
-import { Helmet } from 'react-helmet';
-
-
-
+import { Helmet } from 'react-helmet-async';
 
 const stripePromise = loadStripe(`${import.meta.env.VITE_STRIPE_KEY}`);
 const MemberShipe = () => {
 
     return (
-        <div>
+        <div className='p-4'>
             <Helmet>
                 <title> Cm || Membership Page</title>
             </Helmet>
-            <h1 className='text-center text-2xl'>Is member shipe</h1>
-            <div className='w-3/4 mx-auto bg-gray-200 p-10 my-10'>
-              
+           
+            
+            <div className='lg:w-3/12 mx-auto bg-gray-200 p-10 my-10 rounded-md'>
+                
+                <div className='text-center p-3  '>
+                    <p className='text-2xl font-semibold'>You have a Membership </p>
+                    <p className='my-2 font-semibold'>Pay To <span className='text-accent'>50$</span></p>
+                </div>
 
 
-                <Elements stripe={stripePromise}>
-                    <CheckoutForm />
-                </Elements>
+                <div className='my-5 border-2'>
+                    <Elements stripe={stripePromise}>
+                        <CheckoutForm />
+                    </Elements>
+                </div>
             </div>
         </div>
     );

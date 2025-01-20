@@ -4,20 +4,14 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../../../Hooks/UseAuth";
 import { useQuery } from "@tanstack/react-query";
 import UsePublic from "../../../../Hooks/UsePublic";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const AddPost = () => {
     const [selectedTag, setSelectedTag] = useState(null);
     const navigate = useNavigate();
     const { user } = useAuth();
     const axiosPublic = UsePublic()
-    // const tagOptions = [
-    //     { value: "Technology", label: "Technology" },
-    //     { value: "Science", label: "Science" },
-    //     { value: "Art", label: "Art" },
-    //     { value: "Health", label: "Health" },
-    //     { value: "Education", label: "Education" },
-    // ];
+    
     
 
     const { data: postData, isLoading } = useQuery({
@@ -48,7 +42,7 @@ const AddPost = () => {
         value: tag.tag, 
         label: tag.tag, 
     }));
-    console.log(tags);
+    // console.log(tags);
 
     const postCount = postData?.count || 0;
     const isGoldMember = userInfo?.Badge === "Gold";
