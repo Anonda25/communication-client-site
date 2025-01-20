@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hooks/UseAuth";
 import toast from "react-hot-toast";
 import {  useQuery } from "@tanstack/react-query";
 import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
 import useAdmin from "../../Hooks/useAdmin";
-
+import './Navbar.css'
 const Navbar = () => {
     const { user, logOut } = useAuth()
     const axiosSecure = UseAxiosSecure()
@@ -34,8 +34,8 @@ const Navbar = () => {
                     Comonication
                 </Link>
                 <div className="lg:ml-10 flex gap-2 lg:gap-5 items-center justify-around">
-                    <Link to={'/'}>Home</Link>
-                    <Link to={'/Membership'}>Membership</Link>
+                    <NavLink to={'/'}>Home</NavLink>
+                    <NavLink to={'/Membership'}>Membership</NavLink>
                   
                    {
                     user && <>

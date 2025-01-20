@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../../Hooks/useAdmin";
 
 
@@ -18,53 +18,53 @@ const Dashboard = () => {
 
                     {
                         isAdmin ? <>
-                            <li>
-                                <Link to="/dashboard/Admin-Profile" className="btn btn-ghost w-full text-left">
+                            
+                                <NavLink to="/dashboard/Admin-Profile" className="btn btn-ghost w-full text-left">
                                     Admin Profile
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/dashboard/Manage-Users" className="btn btn-ghost w-full text-left">
+                                </NavLink>
+                           
+                           
+                                <NavLink to="/dashboard/Manage-Users" className="btn btn-ghost w-full text-left">
                                     Manage Users
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/dashboard/Reported-Comments" className="btn btn-ghost w-full text-left">
+                                </NavLink>
+                          
+                            
+                                <NavLink to="/dashboard/Reported-Comments" className="btn btn-ghost w-full text-left">
                                     Reported Comments
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/dashboard/Make-Announcement" className="btn btn-ghost w-full text-left">
+                                </NavLink>
+                           
+                            
+                                <NavLink to="/dashboard/Make-Announcement" className="btn btn-ghost w-full text-left">
                                     Make Announcement
-                                </Link>
-                            </li>
+                                </NavLink>
+                            
                             <div className="divider">OR</div>
                             
-                            <li>
-                                <Link to={'/'}> <h1 className="text-xl font-bold">Home</h1></Link>
-                            </li>
+                           
+                            <NavLink to={'/'}> <h1 className="btn btn-ghost w-full text-center">Home</h1></NavLink>
+                           
                         </>
                         :
                         <>
-                                <li>
-                                    <Link to="/dashboard/my-profile" className="btn btn-ghost w-full text-left">
+                                
+                                    <NavLink to="/dashboard/my-profile" className="btn btn-ghost w-full text-left">
                                         My Profile
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/dashboard/add-post" className="btn btn-ghost w-full text-left">
+                                    </NavLink>
+                               
+                               
+                                    <NavLink to="/dashboard/add-post" className="btn btn-ghost w-full text-left">
                                         Add Post
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/dashboard/my-posts" className="btn btn-ghost w-full text-left">
+                                    </NavLink>
+                                
+                                
+                                    <NavLink to="/dashboard/my-posts" className="btn btn-ghost w-full text-left">
                                         My Posts
-                                    </Link>
-                                </li>
+                                    </NavLink>
+                               
                                 <div className="divider"></div>
-                                <li>
-                                    <Link to={'/'}> <h1 className="text-xl font-bold ">Home</h1></Link>
-                                </li>
+                               
+                                <NavLink to={'/'}> <h1 className="btn btn-ghost w-full text-center ">Home</h1></NavLink>
+                               
                         </>
                     }
                     

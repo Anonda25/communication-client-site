@@ -1,0 +1,15 @@
+.active {
+    background-color: transparent;
+    color: #3B82F6;
+    border: 2px solid #3B82F6;
+    border-radius: 20px;
+    padding: 4px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.active:hover {
+    background-color: #3B82F6;
+    color: #fff;
+}
