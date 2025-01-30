@@ -5,6 +5,8 @@ import useAuth from "../../../../Hooks/UseAuth";
 import { useQuery } from "@tanstack/react-query";
 import UsePublic from "../../../../Hooks/UsePublic";
 import { Helmet } from "react-helmet-async";
+import Loading from "../../../../Components/Loading";
+import toast from "react-hot-toast";
 
 const AddPost = () => {
     const [selectedTag, setSelectedTag] = useState(null);
@@ -74,10 +76,11 @@ const AddPost = () => {
         };
 
         try {
-            const response = await axiosPublic.post(`/posts`, userInfo);
-            console.log("Post added successfully:", response.data);
+            await axiosPublic.post(`/posts`, userInfo);
+            toast.success("Post added successfully:");
             form.reset();
             setSelectedTag(null);
+           
             navigate("/dashboard/my-posts");
         } catch (error) {
             console.error("Error adding post:", error);
@@ -85,7 +88,7 @@ const AddPost = () => {
     };
     
     
-    if (isLoading) return <p>loading....</p>
+    if (isLoading) return <Loading></Loading>
 
     
     return (

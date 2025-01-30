@@ -4,6 +4,7 @@ import useAuth from "../../../../Hooks/UseAuth";
 import { useNavigate, useParams } from "react-router-dom";
 import UsePublic from "../../../../Hooks/UsePublic";
 import { Helmet } from "react-helmet-async";
+import Loading from "../../../../Components/Loading";
 
 const MyPost = () => {
     const { user } = useAuth();
@@ -29,7 +30,7 @@ const MyPost = () => {
     };
 
     if (isLoading) {
-        return <p>Loading your posts...</p>;
+        return <Loading></Loading>;
     }
 
 

@@ -14,11 +14,11 @@ const MemberShipe = () => {
             </Helmet>
            
             
-            <div className='lg:w-3/12 mx-auto bg-gray-200 p-10 my-10 rounded-md'>
+            <div className='lg:w-5/12 mx-auto bg-gray-200 p-10 my-10 rounded-md'>
                 
                 <div className='text-center p-3  '>
                     <p className='text-2xl font-semibold'>You have a Membership </p>
-                    <p className='my-2 font-semibold'>Pay To <span className='text-accent'>50$</span></p>
+                    <p className='my-2 font-semibold'>Pay To <span className='text-blue-300'>50$</span></p>
                 </div>
 
 

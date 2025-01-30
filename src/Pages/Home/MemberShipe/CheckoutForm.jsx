@@ -129,7 +129,7 @@ const CheckoutForm = () => {
                         },
                     }}
                 />
-                <button type="submit" className='mt-10 btn btn-accent w-full' disabled={!stripe || !clientSecret}>
+                <button type="submit" className='mt-10 btn bg-blue-300 w-full' disabled={!stripe || !clientSecret}>
                     Pay
                 </button>
                

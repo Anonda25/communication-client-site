@@ -8,12 +8,13 @@ import { PieChart } from "react-minimal-pie-chart";
 import UsePublic from "../../../../Hooks/UsePublic";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
+import toast from "react-hot-toast";
 
 const AdminProfile = () => {
     const { user } = useAuth();
     const axiosSecure = UseAxiosSecure();
     const axiosPublic = UsePublic()
-    const { register, handleSubmit, } = useForm()
+    const { register, handleSubmit, reset } = useForm()
 
     const { data: comments = [], isLoading: loading } = useQuery({
         queryKey: ['comment'],
@@ -31,7 +32,7 @@ const AdminProfile = () => {
         },
     });
 
-    const { data: posts = [] } = useQuery({
+    const { data: posts = [],   } = useQuery({
         queryKey: ["posts"],
         queryFn: async () => {
             const { data } = await axiosSecure.get('/posts');
@@ -43,11 +44,13 @@ const AdminProfile = () => {
 
     const onSubmit = async (tag) => {
 
-        try{
-            const data = await axiosPublic.post('/tags', tag )
-          console.log(data.data);
+        try {
+            await axiosPublic.post('/tags', tag)
+            
+            toast.success('add the tags successfully',);
+            reset()
 
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
     }

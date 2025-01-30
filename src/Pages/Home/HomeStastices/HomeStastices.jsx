@@ -34,12 +34,12 @@ const HomeStastices = ({ post,}) => {
     const Comments = comments.filter((comment) => comment.postId === _id);
     return (
 
-        <div className="max-w-md mx-auto bg-white border rounded-lg shadow-md p-4 mb-5">
+        <div className="w-8/12 mx-auto bg-white border rounded-lg shadow-md p-4 mb-5">
             {/* Post Image */}
             <img
                 src={image}
                 alt="Post"
-                className="w-full  rounded-lg mb-4"
+                className="w-full h-[400px]  bg-cover object-cover rounded-lg mb-4"
             />
 
             <div className="">

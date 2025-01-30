@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import UsePublic from "../../../../Hooks/UsePublic";
 import { Helmet } from "react-helmet-async";
+import Loading from "../../../../Components/Loading";
 
 const MyProfile = () => {
     const { user } = useContext(AuthContext);
@@ -29,7 +30,7 @@ const MyProfile = () => {
    
 
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <Loading></Loading>;
 
     const member = users?.Badge;
     
