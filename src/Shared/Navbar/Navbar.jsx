@@ -30,7 +30,7 @@ const Navbar = () => {
         <div className="navbar bg-blue-200 lg:px-10 flex sticky top-0 z-10 justify-between">
             {/* Logo and Website Name */}
             <div className="flex">
-                <Link to={'/'} className="btn btn-ghost text-xl">
+                <Link to={'/'} className="btn btn-ghost lg:text-xl">
                     Comonication
                 </Link>
                 <div className="lg:ml-10 flex gap-2 lg:gap-5 items-center justify-around">
