@@ -41,7 +41,7 @@ const MyPost = () => {
             </Helmet>
             <h1 className="text-2xl font-semibold text-center mb-5">My Posts</h1>
             {posts.length === 0 ? (
-                <p className="text-center text-gray-600">You haven't added any posts yet.</p>
+                <p className="text-center text-gray-600 ">You haven't added any posts yet.</p>
             ) : (
                 <table className="table-auto w-full text-left bg-white rounded shadow">
                     <thead>

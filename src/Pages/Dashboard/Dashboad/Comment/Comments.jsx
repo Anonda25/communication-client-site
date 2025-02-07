@@ -72,7 +72,7 @@ const Comments = () => {
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         {singleData.map((comment) => (
                             <tr key={comment?._id}>
                                 <td>{comment?.email}</td>

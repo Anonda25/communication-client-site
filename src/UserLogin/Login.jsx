@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import SocialLogin from "../Hooks/SocialLogin";
 import img from '.././assets/sign In.jpg'
 import { Helmet } from "react-helmet-async";
+import { motion } from "motion/react"
 const Login = () => {
     const { signIn, user, loading, signInWithGoogle } = useAuth();
     
@@ -33,9 +34,30 @@ const Login = () => {
             </Helmet>
             <div className="flex-1">
 
-                <img src={img} alt="" />
+                <motion.img
+                    initial={{ x: -100, opacity: 0 }}
+                    whileInView={
+                        { x: 0, opacity: 1 }}
+                    transition={{
+                        delay: 1,
+                        x: { type: "spring", stiffness: 60 },
+                        opacity: { duration: 2 },
+                        ease: "easeIn",
+                        duration: 2
+                    }} img src={img} alt="" />
             </div>
-            <div className="flex-1 p-3 ">
+            <motion.div 
+                initial={{ x: 100, opacity: 0 }}
+                whileInView={
+                    { x: 0, opacity: 1 }}
+                transition={{
+                    delay: 0.8,
+                    x: { type: "spring", stiffness: 60 },
+                    opacity: { duration: 1 },
+                    ease: "easeIn",
+                    duration: 1
+                }}
+            className="flex-1 p-3 ">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-7 my-20">
 
                     <div className="divider text-xl font-bold">Log In</div>
@@ -65,7 +87,7 @@ const Login = () => {
                     </div>
                     <p className="text-xl text-gray-600 "> You are a new user please!<Link to={'/register'} className="text-green-300 ml-2 underline">Register</Link></p>
                 </form>
-            </div>
+            </motion.div>
         </div>
     );
 };

@@ -5,7 +5,7 @@ import { FaUsers } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
 import DynamicTitle from '../../../../Components/DynamicTitle';
 import Loading from '../../../../Components/Loading';
-
+import { motion } from "motion/react"
 const AllUser = () => {
     const [searchTerm, setSearchTerm] = useState("")
     const axiosSecure = UseAxiosSecure()
@@ -67,7 +67,18 @@ const AllUser = () => {
                         </thead>
                         <tbody>
                             {
-                                users.map((user, ind) => <tr key={user._id} className="bg-base-200">
+                                users.map((user, ind) => <motion.tr
+                                    initial={{ x: -100, opacity: 0 }}
+                                    whileInView={
+                                        { x: 0, opacity: 1 }}
+                                    transition={{
+                                        delay: 1,
+                                        x: { type: "spring", stiffness: 60 },
+                                        opacity: { duration: 2 },
+                                        ease: "easeIn",
+                                        duration: 2
+                                    }} 
+                                key={user._id} className="bg-base-200">
                                     <th>{ind+1}</th>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
@@ -83,7 +94,7 @@ const AllUser = () => {
 
                                     </td>
                                     <td >{user.Badge}</td>
-                                </tr>)
+                                </motion.tr>)
                             }
                             
                            

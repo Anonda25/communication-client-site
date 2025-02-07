@@ -7,6 +7,7 @@ import UsePublic from "../Hooks/UsePublic";
 import SocialLogin from "../Hooks/SocialLogin";
 import img from "../assets/signIn.jpg"
 import { Helmet } from "react-helmet-async";
+import { motion } from "motion/react"
 const SignUp = () => {
     const axiosPublic = UsePublic()
 
@@ -61,9 +62,31 @@ const SignUp = () => {
             
             <div className="flex-1">
              
-                <img src={img} alt="" />
+                <motion.img 
+                    initial={{ x: -100, opacity: 0 }}
+                    whileInView={
+                        { x: 0, opacity: 1 }}
+                    transition={{
+                        delay: 1,
+                        x: { type: "spring", stiffness: 60 },
+                        opacity: { duration: 2 },
+                        ease: "easeIn",
+                        duration: 2
+                    }} 
+                src={img} alt="" />
             </div>
-            <div className="flex-1">
+            <motion.div 
+                initial={{ x: 100, opacity: 0 }}
+                whileInView={
+                    { x: 0, opacity: 1 }}
+                transition={{
+                    delay: 0.8,
+                    x: { type: "spring", stiffness: 60 },
+                    opacity: { duration: 1 },
+                    ease: "easeIn",
+                    duration: 1
+                }}
+            className="flex-1">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 my-5">
                     {/* Name */}
                     <div className="form-control">
@@ -138,7 +161,7 @@ const SignUp = () => {
                     </p>
                 </form>
 
-            </div>
+            </motion.div>
         </div>
     );
 };

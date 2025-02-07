@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import DynamicTitle from "../../../../Components/DynamicTitle";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import { motion } from "motion/react"
 
 const Reported = () => {
 const axiosSecure=UseAxiosSecure()
@@ -38,9 +38,9 @@ const axiosSecure=UseAxiosSecure()
 
             <div className="p-6">
                 <h2 className="text-2xl font-bold mb-4">Reported Activities</h2>
-                <div className="overflow-x-scroll">
-                    <table className="table w-full">
-                        <thead>
+                <div className="overflow-x-scroll rounded-lg">
+                    <table className="table w-full ">
+                        <thead className=" bg-blue-100 ">
                             <tr>
                                 <th>#</th>
                                 <th>Commenter Email</th>
@@ -50,10 +50,22 @@ const axiosSecure=UseAxiosSecure()
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody >
 
                             {
-                                report.map((rep,ind) => <tr key={rep._id}>
+                                report.map((rep,ind) => <motion.tr
+                                    initial={{ x: -100, opacity: 0 }}
+                                    whileInView={
+                                        { x: 0, opacity: 1 }}
+                                    transition={{
+                                        delay: 1,
+                                        x: { type: "spring", stiffness: 60 },
+                                        opacity: { duration: 2 },
+                                        ease: "easeIn",
+                                        duration: 2
+                                    }} 
+                                
+                                key={rep._id}>
                                     <th>{ind+ 1}</th>
                                     <th>{rep?.commenter}</th>
                                     <td>{rep.PostTitle}</td>
@@ -62,7 +74,7 @@ const axiosSecure=UseAxiosSecure()
                                     <td>
                                         <button onClick={() => handleReportDelete(rep._id)}>Delete</button>
                                     </td>
-                                </tr>)
+                                </motion.tr>)
                             }
                            
                         </tbody>

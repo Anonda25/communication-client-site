@@ -7,7 +7,7 @@ import UsePublic from "../../../../Hooks/UsePublic";
 import { Helmet } from "react-helmet-async";
 import Loading from "../../../../Components/Loading";
 import toast from "react-hot-toast";
-
+import { motion } from "motion/react"
 const AddPost = () => {
     const [selectedTag, setSelectedTag] = useState(null);
     const navigate = useNavigate();
@@ -97,7 +97,19 @@ const AddPost = () => {
                 <title> Cm || Add Post</title>
             </Helmet>
             {isGoldMember || !postedData ? (
-                <div className="max-w-md mx-auto mt-10 p-5 bg-gray-100 rounded shadow">
+                <motion.div
+                
+                    initial={{ x: -100, opacity: 0 }}
+                    whileInView={
+                        { x: 0, opacity: 1 }}
+                    transition={{
+                        delay: 1,
+                        x: { type: "spring", stiffness: 60 },
+                        opacity: { duration: 2 },
+                        ease: "easeIn",
+                        duration: 3
+                    }} 
+                className="max-w-md mx-auto mt-10 p-5 bg-gray-100 rounded shadow">
                     <h1 className="text-2xl font-semibold text-center mb-5">Add Post</h1>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <input
@@ -149,7 +161,7 @@ const AddPost = () => {
                             Add Post
                         </button>
                     </form>
-                </div>
+                </motion.div>
             ) : (
                 <div className="max-w-md mx-auto mt-10 text-center">
                     <p className="mb-4 text-lg font-semibold">
